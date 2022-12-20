@@ -4,6 +4,13 @@ from django.utils.safestring import mark_safe
 from .models import *
 
 
+# TODO  а еще можно так
+#  from django.contrib import admin
+#  @admin.register(Shelter)
+#  class ShelterAdmin(admin.ModelAdmin):
+#      ...
+#  без admin.site.register(Shelter, ShelterAdmin)
+
 class ShelterAdmin(admin.ModelAdmin):
     list_display = ('pk', 'name', )
     list_display_links = ('pk', 'name')
@@ -17,6 +24,7 @@ class KindAdmin(admin.ModelAdmin):
 
 
 class PetAdmin(admin.ModelAdmin):
+    # TODO выглядит неопрятно, используй  black
     list_display = ('pk', 'name', 'birthday', 'arrival_date', 'weight', 'height', 'deleted_at', 'shelter', 'kind')
     list_display_links = ('pk', 'name')
     search_fields = ('name', 'arrival_date', 'signs')
@@ -34,6 +42,7 @@ class PetAdmin(admin.ModelAdmin):
     get_photo.short_description = 'Миниатюра'
 
     def get_queryset(self, request):
+        # TODO category?
         return Pet.objects.all().select_related('category')
 
 

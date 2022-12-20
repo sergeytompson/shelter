@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # TODO обычно приложения начинаются, либо оканчиваются на app
+    #  app_shelter, shelter_app
     'shelter_management.apps.ShelterManagementConfig'
 ]
 
