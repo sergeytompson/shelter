@@ -71,14 +71,13 @@ class ShelterUserAdmin(admin.ModelAdmin):
     list_display = (
         "pk",
         "username",
-        'first_name',
-        'last_name',
-        'email',
-        'is_staff',
-        'shelter'
+        "first_name",
+        "last_name",
+        "email",
+        "is_staff",
+        "shelter",
     )
     list_display_links = ("pk", "username")
-    search_fields = ("username", 'first_name', 'last_name')
+    search_fields = ("username", "first_name", "last_name")
     list_editable = ("is_staff",)
     list_filter = ("shelter",)
-

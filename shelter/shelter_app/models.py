@@ -1,3 +1,5 @@
+from typing import Any
+
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
@@ -9,10 +11,10 @@ class Shelters(models.Model):
         "Фото", upload_to="photos/shelters/", blank=True, null=True
     )
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         return reverse("shelter", kwargs={"pk": self.pk})
 
     class Meta:
@@ -23,7 +25,7 @@ class Shelters(models.Model):
 class Kinds(models.Model):
     name = models.CharField("Вид животного", max_length=100)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
     class Meta:
@@ -54,20 +56,19 @@ class Pets(models.Model):
     class Meta:
         verbose_name = "Животное"
         verbose_name_plural = "Животные"
-        # TODO ordering явно не меняется в рантайме коллекция, зачем здесь лист?
-        ordering = ["-arrival_date"]
+        ordering = ("-arrival_date",)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         return reverse("pet", kwargs={"pk": self.pk})
 
-    def delete(self, using=None, keep_parents=False):
+    def delete(self, using: Any = None, keep_parents: bool = False) -> None:
         self.deleted = True
         self.save()
 
-    def restore(self):
+    def restore(self) -> None:
         self.deleted = False
         self.save()
 
@@ -81,5 +82,3 @@ class ShelterUser(User):
     class Meta:
         verbose_name = "Пользователь приютов"
         verbose_name_plural = "Пользователи приютов"
-
-# TODO нигде не вижу аннотаций типов!
