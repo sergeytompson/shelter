@@ -54,6 +54,7 @@ class Pets(models.Model):
     class Meta:
         verbose_name = "Животное"
         verbose_name_plural = "Животные"
+        # TODO ordering явно не меняется в рантайме коллекция, зачем здесь лист?
         ordering = ["-arrival_date"]
 
     def __str__(self):
@@ -80,3 +81,5 @@ class ShelterUser(User):
     class Meta:
         verbose_name = "Пользователь приютов"
         verbose_name_plural = "Пользователи приютов"
+
+# TODO нигде не вижу аннотаций типов!
