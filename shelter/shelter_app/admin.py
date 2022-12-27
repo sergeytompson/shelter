@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.db.models import QuerySet
 from django.utils.safestring import mark_safe
 
 from .models import *
@@ -56,13 +57,13 @@ class PetAdmin(admin.ModelAdmin):
     )
     readonly_fields = ("get_photo", "arrival_date", "birthday", "shelter", "kind")
 
-    def get_photo(self, obj):
+    def get_photo(self, obj) -> Any:
         if obj.photo:
             return mark_safe(f'<img src="{obj.photo.url}" width="100">')
 
     get_photo.short_description = "Миниатюра"
 
-    def get_queryset(self, request):
+    def get_queryset(self, request) -> QuerySet:
         return Pets.objects.all().select_related("shelter")
 
 
