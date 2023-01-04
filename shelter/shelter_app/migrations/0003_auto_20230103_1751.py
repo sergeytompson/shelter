@@ -4,6 +4,7 @@ from django.db import migrations
 
 
 def create_groups(apps, schema_editor):
+    # TODO используй корректный синтаксис, слова с заглавной буквы только для декларирования классов
     Group = apps.get_model('auth', 'Group')
     Permission = apps.get_model('auth', 'Permission')
 
