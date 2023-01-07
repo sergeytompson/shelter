@@ -12,8 +12,11 @@ class PetsListView(ListView):
     model = Pets
     context_object_name = 'pets'
 
+    # TODO почитай про LoginRequiredMixin
+    #  тебе незачем переопределять get метод, достаточно переопределить метод для получения queryset
     def get(self, request, *args, **kwargs):
         user = request.user
+
         if isinstance(user, ShelterUser):
             self.queryset = Pets.objects.filter(shelter=user.shelter)
         elif isinstance(request.user, AnonymousUser):
@@ -43,7 +46,6 @@ class PetCreateView(CreateView):
 
     def get(self, request, *args, **kwargs):
         return HttpResponse("It's Pet Create View")
-
 
 # class PetUpdateView(UpdateView):
 #
