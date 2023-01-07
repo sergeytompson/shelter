@@ -1,3 +1,4 @@
+from django.contrib.auth.models import AnonymousUser
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -7,10 +8,17 @@ from django.views.generic.edit import DeletionMixin
 from .models import Pets, Shelters, ShelterUser
 
 
-class PetsListView(DeletionMixin, ListView):
+class PetsListView(ListView):
+    model = Pets
+    context_object_name = 'pets'
 
     def get(self, request, *args, **kwargs):
-        return HttpResponse("It's Pets List View")
+        user = request.user
+        if isinstance(user, ShelterUser):
+            self.queryset = Pets.objects.filter(shelter=user.shelter)
+        elif isinstance(request.user, AnonymousUser):
+            return HttpResponse('Пошел нахуй, пес')
+        return super().get(self, request, *args, **kwargs)
 
 
 # class ShelterListView(ListView):
@@ -34,13 +42,13 @@ class PetsListView(DeletionMixin, ListView):
 class PetCreateView(CreateView):
 
     def get(self, request, *args, **kwargs):
-        return HttpResponse("It's Create Pet View")
+        return HttpResponse("It's Pet Create View")
 
 
 # class PetUpdateView(UpdateView):
 #
 #     def get(self, request, *args, **kwargs):
-#         return HttpResponse("It's Update Pet View")
+#         return HttpResponse("It's Pet Update View")
 
 
 # class PetDeleteView(DeleteView):
