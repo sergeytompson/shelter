@@ -11,14 +11,12 @@ from .models import Pets, Shelters, ShelterUser
 class PetsListView(LoginRequiredMixin, ListView):
     model = Pets
     context_object_name = 'pets'
+    raise_exception = True
 
     def get_queryset(self):
         if hasattr(self.request.user, 'shelter'):
             return Pets.objects.filter(shelter=self.request.user.shelter)
         return Pets.objects.all()
-
-    def handle_no_permission(self):
-        return HttpResponse('<p>пошел нахуй, пес</p>')
 
 
 # class ShelterListView(ListView):
