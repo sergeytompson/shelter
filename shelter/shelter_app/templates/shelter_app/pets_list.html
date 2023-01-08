@@ -6,7 +6,7 @@
 </head>
 <body>
     {% for pet in pets %}
-        <p>{{ pet }}</p>
+        <a href="{{ pet.get_absolute_url }}">{{ pet }}</a>
     {% endfor %}
 </body>
 </html>
