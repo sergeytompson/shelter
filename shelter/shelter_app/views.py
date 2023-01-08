@@ -1,16 +1,22 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import AnonymousUser
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 # from django.contrib.auth.views import LoginView, LogoutView
-from django.views.generic.edit import DeletionMixin
 
 from .models import Pets, Shelters, ShelterUser
 
 
-class PetsListView(DeletionMixin, ListView):
+class PetsListView(LoginRequiredMixin, ListView):
+    model = Pets
+    context_object_name = 'pets'
+    raise_exception = True
 
-    def get(self, request, *args, **kwargs):
-        return HttpResponse("It's Pets List View")
+    def get_queryset(self):
+        if hasattr(self.request.user, 'shelter'):
+            return Pets.objects.filter(shelter=self.request.user.shelter)
+        return Pets.objects.all()
 
 
 # class ShelterListView(ListView):
@@ -34,13 +40,12 @@ class PetsListView(DeletionMixin, ListView):
 class PetCreateView(CreateView):
 
     def get(self, request, *args, **kwargs):
-        return HttpResponse("It's Create Pet View")
-
+        return HttpResponse("It's Pet Create View")
 
 # class PetUpdateView(UpdateView):
 #
 #     def get(self, request, *args, **kwargs):
-#         return HttpResponse("It's Update Pet View")
+#         return HttpResponse("It's Pet Update View")
 
 
 # class PetDeleteView(DeleteView):
