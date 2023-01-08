@@ -4,4 +4,4 @@ from django.apps import AppConfig
 class ShelterAppConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
     name = "shelter_app"
-    verbose_name = 'Животные и приюты'
+    verbose_name = "Животные и приюты"

@@ -8,9 +8,9 @@ from .views import *
 urlpatterns = [
     # path('', ShelterListView.as_view(), name='home'),
     # path('shelters/<int:pk>', ShelterDetailView.as_view(), name='shelter'),
-    # path('pets/<int:pk>', PetDetailView.as_view(), name='pet'),
-    path('', PetsListView.as_view(), name='pets'),
-    path('create_pet', PetCreateView.as_view(), name='create pet'),
+    path("pets/<int:pk>", PetDetailView.as_view(), name="pet"),
+    path("", PetsListView.as_view(), name="pets"),
+    path("create_pet", PetCreateView.as_view(), name="create pet"),
     # path('pets/<int:pk>/update', PetUpdateView.as_view(), name='update pet'),
     # path('pets/<int:pk>/delete', PetUpdateView.as_view(), name='delete pet'),
     # path('register/', ShelterUserRegisterView.as_view(), name='register'),

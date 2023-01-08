@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ pet }}</title>
+</head>
+<body>
+    <b>Это страница животного по кличке {{ pet }}</b>
+    <p>{{ pet }} - {{ pet.kind }}</p>
+    <p>Его вес: {{ pet.weight }} кг</p>
+    <p>Рост: {{ pet.height }} см</p>
+    <p>Возраст (полных лет): {{ age }}</p>
+    <p>Прибыл в приют: {{ pet.arrival_date|date:"j E Y" }} года</p>
+    <p>Особые приметы: {{ pet.signs }}</p>
+    {% if pet.photo %}
+        <img src="{{ pet.photo.url }}">
+    {% endif %}
+</body>
+</html>
