@@ -1,27 +1,24 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import AnonymousUser
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 # from django.contrib.auth.views import LoginView, LogoutView
-from django.views.generic.edit import DeletionMixin
 
 from .models import Pets, Shelters, ShelterUser
 
 
-class PetsListView(ListView):
+class PetsListView(LoginRequiredMixin, ListView):
     model = Pets
     context_object_name = 'pets'
 
-    # TODO почитай про LoginRequiredMixin
-    #  тебе незачем переопределять get метод, достаточно переопределить метод для получения queryset
-    def get(self, request, *args, **kwargs):
-        user = request.user
+    def get_queryset(self):
+        if isinstance(self.request.user, ShelterUser):
+            return Pets.objects.filter(shelter=self.request.user.shelter)
+        return Pets.objects.all()
 
-        if isinstance(user, ShelterUser):
-            self.queryset = Pets.objects.filter(shelter=user.shelter)
-        elif isinstance(request.user, AnonymousUser):
-            return HttpResponse('Пошел нахуй, пес')
-        return super().get(self, request, *args, **kwargs)
+    def handle_no_permission(self):
+        return HttpResponse('пошел нахуй, пес')
 
 
 # class ShelterListView(ListView):
