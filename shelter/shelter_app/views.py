@@ -13,11 +13,15 @@ class PetsListView(LoginRequiredMixin, ListView):
     context_object_name = 'pets'
 
     def get_queryset(self):
+        # TODO немного странный подход, ты проверяешь является ли пользователь
+        #  инстансом и потом подставляешь его аттрибут (который может быть None)
+        #  не логичнее ли проверять наличие аттрибута и подставлять его, при наличии?
         if isinstance(self.request.user, ShelterUser):
             return Pets.objects.filter(shelter=self.request.user.shelter)
         return Pets.objects.all()
 
     def handle_no_permission(self):
+        # TODO вместо текста лучше верни корректный http код
         return HttpResponse('пошел нахуй, пес')
 
 
