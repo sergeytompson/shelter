@@ -1,6 +1,7 @@
 from typing import Union
 
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
 from django.db.models import QuerySet
 from django.http import HttpRequest
 from django.utils.safestring import mark_safe
@@ -58,7 +59,10 @@ class PetAdmin(admin.ModelAdmin):
         "shelter",
         "kind",
     )
-    readonly_fields = ("get_photo", "arrival_date", "birthday", "shelter", "kind")
+    readonly_fields = (
+        "get_photo",
+        "arrival_date",
+    )
 
     def get_photo(self, obj: Pets) -> Union[str, None]:
         if obj.photo:
@@ -67,21 +71,7 @@ class PetAdmin(admin.ModelAdmin):
     get_photo.short_description = "Миниатюра"
 
     def get_queryset(self, request: HttpRequest) -> QuerySet:
-        return Pets.objects.all().select_related("shelter")
+        return Pets.all_objects.all().select_related("shelter")
 
 
-@admin.register(ShelterUser)
-class ShelterUserAdmin(admin.ModelAdmin):
-    list_display = (
-        "pk",
-        "username",
-        "first_name",
-        "last_name",
-        "email",
-        "is_staff",
-        "shelter",
-    )
-    list_display_links = ("pk", "username")
-    search_fields = ("username", "first_name", "last_name")
-    list_editable = ("is_staff",)
-    list_filter = ("shelter",)
+admin.site.register(ShelterUser, UserAdmin)

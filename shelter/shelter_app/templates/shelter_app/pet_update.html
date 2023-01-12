@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Обновление информации о животном{% endblock %}
+{% block content %}
+<h1>Обновление информации о животном</h1>
+<form action="{% url 'pet update' pk=object.pk %}" method='post'>
+    {% csrf_token %}
+        {{ form.as_p }}
+    <button>Обновить информацию</button>
+</form>
+{% endblock %}

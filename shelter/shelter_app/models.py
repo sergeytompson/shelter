@@ -1,8 +1,14 @@
 from typing import Any
 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.db.models import QuerySet
 from django.urls import reverse
+
+
+class SoftDeleteManager(models.Manager):
+    def get_queryset(self) -> QuerySet:
+        return super().get_queryset().filter(deleted=False)
 
 
 class Shelters(models.Model):
@@ -53,6 +59,9 @@ class Pets(models.Model):
         null=True,
     )
 
+    all_objects = models.Manager()
+    objects = SoftDeleteManager()
+
     class Meta:
         verbose_name = "Животное"
         verbose_name_plural = "Животные"
@@ -73,12 +82,27 @@ class Pets(models.Model):
         self.save()
 
 
-class ShelterUser(User):
-
+class ShelterUser(AbstractUser):
     shelter = models.ForeignKey(
-        Shelters, on_delete=models.CASCADE, verbose_name="Привязан к приюту"
+        Shelters,
+        on_delete=models.CASCADE,
+        verbose_name="Привязан к приюту",
+        blank=True,
+        null=True,
     )
 
     class Meta:
-        verbose_name = "Пользователь приютов"
+        verbose_name = "пользователя приютов"
         verbose_name_plural = "Пользователи приютов"
+
+    def __str__(self) -> str:
+        return self.username
+
+    def has_add_pets_perm(self) -> bool:
+        return self.has_perm("shelter_app.add_pets")
+
+    def has_change_pets_perm(self) -> bool:
+        return self.has_perm("shelter_app.change_pets")
+
+    def has_delete_pets_perm(self) -> bool:
+        return self.has_perm("shelter_app.delete_pets")

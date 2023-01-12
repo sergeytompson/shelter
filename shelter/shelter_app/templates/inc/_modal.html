@@ -1,0 +1,21 @@
+<div class="modal fade" id="pet_delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Удаление животного</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Вы действительно хотите удалить животное по кличке {{ pet }}</p>
+      </div>
+      <div class="modal-footer">
+        <form action="{% url 'pet_delete' pet.pk %}" method="post">
+          {% csrf_token %}
+          {{ pet_delete }}
+          <button type="submit" class="btn btn-primary">Да</button>
+        </form>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нет</button>
+      </div>
+    </div>
+  </div>
+</div>
