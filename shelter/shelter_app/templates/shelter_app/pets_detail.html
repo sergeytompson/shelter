@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ pet }}</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block title %}{{ pet.kind }} {{ pet }} из приюта {{ pet.shelter }}{% endblock %}
+{% block content %}
     <b>Это страница животного по кличке {{ pet }}</b>
     <p>{{ pet }} - {{ pet.kind }}</p>
     <p>Его вес: {{ pet.weight }} кг</p>
@@ -15,5 +11,13 @@
     {% if pet.photo %}
         <img src="{{ pet.photo.url }}">
     {% endif %}
-</body>
-</html>
+    <p>
+        {% if request.user.has_change_pets_perm %}
+            <a href="{% url 'pet update' pet.pk %}">Обновить</a>
+        {% endif %}
+        {% if request.user.has_delete_pets_perm %}
+            | <a href="#" data-bs-toggle="modal" data-bs-target="#pet_delete" rel="nofollow">Удалить</a>
+        {% endif %}
+    </p>
+    {% include 'inc/_modal.html' %}
+{% endblock %}

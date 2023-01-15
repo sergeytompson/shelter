@@ -1,4 +1,5 @@
 from django.conf.urls.static import static
+from django.contrib.auth.views import LogoutView
 from django.urls import path
 
 from shelter import settings
@@ -6,16 +7,14 @@ from shelter import settings
 from .views import *
 
 urlpatterns = [
-    # path('', ShelterListView.as_view(), name='home'),
-    # path('shelters/<int:pk>', ShelterDetailView.as_view(), name='shelter'),
     path("pets/<int:pk>", PetDetailView.as_view(), name="pet"),
     path("", PetsListView.as_view(), name="pets"),
-    path("create_pet", PetCreateView.as_view(), name="create pet"),
-    # path('pets/<int:pk>/update', PetUpdateView.as_view(), name='update pet'),
-    # path('pets/<int:pk>/delete', PetUpdateView.as_view(), name='delete pet'),
-    # path('register/', ShelterUserRegisterView.as_view(), name='register'),
-    # path('login/', ShelterUserLoginView.as_view(), name='login'),
-    # path('logout/', ShelterUserLogoutView.as_view(), name='logout'),
+    path("pet_create", PetCreateView.as_view(), name="pet create"),
+    path("pets/<int:pk>/update", PetUpdateView.as_view(), name="pet update"),
+    path("pets/<int:pk>/delete", PetDeleteView.as_view(), name="pet_delete"),
+    path("register/", ShelterUserRegisterView.as_view(), name="register"),
+    path("login/", ShelterUserLoginView.as_view(), name="login"),
+    path("logout/", LogoutView.as_view(), name="logout"),
 ]
 
 if settings.DEBUG:
