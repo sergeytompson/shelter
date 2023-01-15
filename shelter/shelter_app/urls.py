@@ -7,9 +7,6 @@ from shelter import settings
 from .views import *
 
 urlpatterns = [
-    # TODO почисти мусор
-    # path('', ShelterListView.as_view(), name='home'),
-    # path('shelters/<int:pk>', ShelterDetailView.as_view(), name='shelter'),
     path("pets/<int:pk>", PetDetailView.as_view(), name="pet"),
     path("", PetsListView.as_view(), name="pets"),
     path("pet_create", PetCreateView.as_view(), name="pet create"),

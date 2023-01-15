@@ -57,7 +57,3 @@ class PetModelForm(forms.ModelForm):
             "weight": forms.NumberInput(),
             "height": forms.NumberInput(),
         }
-
-
-class PetDeleteForm(forms.Form):
-    pass

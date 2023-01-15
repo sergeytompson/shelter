@@ -11,7 +11,6 @@
       <div class="modal-footer">
         <form action="{% url 'pet_delete' pet.pk %}" method="post">
           {% csrf_token %}
-          {{ pet_delete }}
           <button type="submit" class="btn btn-primary">Да</button>
         </form>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нет</button>
