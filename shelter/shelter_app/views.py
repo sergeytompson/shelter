@@ -30,7 +30,7 @@ class PetsListView(LoginRequiredMixin, ListView):
             return Pets.objects.filter(shelter=self.request.user.shelteruser.shelter)
         return Pets.objects.all()
 
-
+# TODO не храним закомментированный код, это плохая привычка
 # class ShelterListView(ListView):
 #
 #     def get(self, request, *args, **kwargs):
@@ -63,6 +63,11 @@ class PetDetailView(DetailView):
 
 class PetCreateView(PermissionRequiredMixin, CreateView):
     form_class = PetModelForm
+    # TODO у create/update форма может быть и должна быть одной
+    #  если провалишься внутрь класса createView - то увидишь, что класс будет искать
+    #  хтмл шаблон {model_name}_form, всю логику по сохранение или апдейту Джанго возьмет на себя
+    #  class CreateView(SingleObjectTemplateResponseMixin, BaseCreateView):
+    #  template_name_suffix = "_form"
     template_name = "shelter_app/pet_create.html"
     raise_exception = True
     permission_required = "shelter_app.add_pets"
@@ -70,6 +75,7 @@ class PetCreateView(PermissionRequiredMixin, CreateView):
 
 class PetUpdateView(PermissionRequiredMixin, UpdateView):
     form_class = PetModelForm
+    # TODO смотри комментарий выше
     template_name = "shelter_app/pet_update.html"
     raise_exception = True
     permission_required = "shelter_app.change_pets"
@@ -87,6 +93,12 @@ class PetDeleteView(PermissionRequiredMixin, DeleteView):
     def get_success_url(self) -> str:
         return reverse("pets")
 
+    # TODO нет нужды в этом методе
+    #  в переменных класс можно указать model = {твоя модель}
+    #  логика по Model.objects.all() -> срабатывает по умолчанию
+    #  если есть нужда в более специфичном кверисете, то
+    #  можно указать переменную класса queryset = Model.objects.filter(что то там)
+    #  функцию стоит использовать только тогда, когда есть какая то логика по получению квери сета
     def get_queryset(self) -> QuerySet:
         return Pets.objects.all()
 
