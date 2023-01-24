@@ -74,4 +74,7 @@ class PetAdmin(admin.ModelAdmin):
         return Pets.all_objects.all().select_related("shelter")
 
 
-admin.site.register(ShelterUser, UserAdmin)
+@admin.register(ShelterUser)
+class ShelterUserAdmin(UserAdmin):
+    UserAdmin.fieldsets[0][1]['fields'] += ('shelter',)
+    fieldsets = UserAdmin.fieldsets

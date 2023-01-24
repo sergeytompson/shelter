@@ -1,12 +1,13 @@
 from datetime import date
 from typing import Union
 
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import Group
 from django.contrib.auth.views import LoginView
+from django.core.exceptions import EmptyResultSet, ValidationError
 from django.db.models import QuerySet
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import (
     CreateView,
@@ -17,7 +18,7 @@ from django.views.generic import (
 )
 
 from .forms import ShelterUserCreationForm, PetModelForm
-from .models import Pets, Shelters, ShelterUser
+from .models import Pets
 
 
 class PetsListView(LoginRequiredMixin, ListView):
@@ -26,14 +27,20 @@ class PetsListView(LoginRequiredMixin, ListView):
     login_url = "login"
 
     def get_queryset(self) -> QuerySet:
-        if hasattr(self.request.user, "shelteruser"):
-            return Pets.objects.filter(shelter=self.request.user.shelteruser.shelter)
+        if self.request.user.shelter is not None:
+            return Pets.objects.filter(shelter=self.request.user.shelter)
         return Pets.objects.all()
 
 
-class PetDetailView(DetailView):
+class PetDetailView(LoginRequiredMixin, DetailView):
     model = Pets
     context_object_name = "pet"
+    login_url = "login"
+
+    def get_queryset(self):
+        if self.request.user.shelter is not None:
+            return self.model.objects.filter(shelter=self.request.user.shelter)
+        return Pets.objects.all()
 
     def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
@@ -61,6 +68,22 @@ class PetCreateView(PermissionRequiredMixin, CreateView):
         context['button'] = 'Создать животное'
         return context
 
+    def post(
+        self, request: HttpRequest, *args, **kwargs
+    ) -> Union[HttpResponseRedirect, HttpResponse]:
+        self.object = None
+        form = self.get_form()
+        if form.is_valid():
+            pet = form.save(commit=False)
+            if self.request.user.shelter is not None:
+                pet.shelter = self.request.user.shelter
+                return self.form_valid(form)
+            else:
+                messages.error(request, 'Пожалуйста, создайте новое животное в административной панели')
+                return self.form_invalid(form)
+        else:
+            return self.form_invalid(form)
+
 
 class PetUpdateView(PermissionRequiredMixin, UpdateView):
     model = Pets
@@ -75,6 +98,11 @@ class PetUpdateView(PermissionRequiredMixin, UpdateView):
         context['button'] = 'Обновить информацию'
         return context
 
+    def get_queryset(self):
+        if self.request.user.shelter is not None:
+            return self.model.objects.filter(shelter=self.request.user.shelter)
+        return Pets.objects.all()
+
 
 class PetDeleteView(PermissionRequiredMixin, DeleteView):
     model = Pets
@@ -83,6 +111,11 @@ class PetDeleteView(PermissionRequiredMixin, DeleteView):
 
     def get_success_url(self) -> str:
         return reverse("pets")
+
+    def get_queryset(self):
+        if self.request.user.shelter is not None:
+            return self.model.objects.filter(shelter=self.request.user.shelter)
+        return Pets.objects.all()
 
 
 class ShelterUserRegisterView(CreateView):
@@ -93,6 +126,7 @@ class ShelterUserRegisterView(CreateView):
     def post(
         self, request: HttpRequest, *args, **kwargs
     ) -> Union[HttpResponseRedirect, HttpResponse]:
+        self.object = None
         form = self.get_form()
         if form.is_valid():
             new_user = form.save()

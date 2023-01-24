@@ -9,7 +9,7 @@
         <p>Вы действительно хотите удалить животное по кличке {{ pet }}</p>
       </div>
       <div class="modal-footer">
-        <form action="{% url 'pet_delete' pet.pk %}" method="post">
+        <form action="{% url 'pet delete' pet.pk %}" method="post">
           {% csrf_token %}
           <button type="submit" class="btn btn-primary">Да</button>
         </form>
