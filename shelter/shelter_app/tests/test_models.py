@@ -68,13 +68,14 @@ class PetModelTest(TestCase):
         test_shelter = Shelters.objects.create(name='тестовый приют')
         test_kind = Kinds.objects.create(name='тестовый вид')
         Pets.objects.create(
+
             name='тестовое животное 1',
             birthday=date.today(),
             weight=1,
             height=2,
             shelter=test_shelter,
             kind=test_kind
-            )
+        )
 
     def test_name_params(self):
         pet = Pets.objects.get(name='тестовое животное 1')
@@ -211,13 +212,14 @@ class ShelterUserModelTest(TestCase):
 
         field_label = shelter_user._meta.get_field('shelter').verbose_name
         self.assertEqual(field_label, 'Привязан к приюту')
-
+        # TODO наверное это лишнее
         blank = shelter_user._meta.get_field('shelter').blank
         self.assertTrue(blank)
-
+        # TODO наверное это лишнее
         null = shelter_user._meta.get_field('shelter').null
         self.assertTrue(null)
 
+    # TODO не уверен, нужно ли это
     def test_str(self):
         shelter_user = ShelterUser.objects.get(username='тестовый юзер')
         self.assertEqual(shelter_user.username, str(shelter_user))
@@ -248,3 +250,9 @@ class ShelterUserModelTest(TestCase):
         perm = Permission.objects.get(name='Can delete Животное')
         shelter_user.user_permissions.add(perm)
         self.assertTrue(shelter_user.has_delete_pets_perm())
+
+# TODO убирай хардкод по максимуму!
+
+# TODO у моделей есть смысл тестировать самописные функции
+#  и создание из валидных и невалидных данных, проверять является ли поле nullable или blankable
+#  немного перебор, но и не ошибка

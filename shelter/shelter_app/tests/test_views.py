@@ -14,6 +14,7 @@ class PetsListViewTest(TestCase):
         self.assertRedirects(resp, '/login/?next=/')
 
     def test_desired_status_to_authorized_user(self):
+        # TODO убирай хардкод, если у Валеры изменится пароль, мы же с ума сойдем менять его в каждом месте
         self.client.login(username='Валера', password='парольвалеры')
         resp = self.client.get(reverse('pets'))
         self.assertEqual(resp.status_code, 200)
@@ -26,6 +27,7 @@ class PetsListViewTest(TestCase):
     def test_get_queryset(self):
         self.client.login(username='Валера', password='парольвалеры')
         resp = self.client.get(reverse('pets'))
+        # TODO что такое "5"?
         self.assertEqual(len(resp.context['pets']), 5)
         shelter = ShelterUser.objects.get(username='Валера').shelter
         self.assertQuerysetEqual(resp.context['pets'], shelter.pets_set.all())
@@ -34,7 +36,10 @@ class PetsListViewTest(TestCase):
         ShelterUser.objects.create_superuser('superuser', password='superuserpassword')
         self.client.login(username='superuser', password='superuserpassword')
         resp = self.client.get(reverse('pets'))
+        # TODO что такое "25"?
         self.assertEqual(len(resp.context['pets']), 25)
+
+        # TODO то есть если фикстура вдруг изменится, придется переписывать тесты?
 
     def test_view_does_not_show_soft_delete_pets(self):
         self.client.login(username='Валера', password='парольвалеры')
@@ -495,3 +500,5 @@ class ShelterUserLoginViewTest(TestCase):
             'password': 'парольвалеры',
         })
         self.assertRedirects(resp, reverse('pets'))
+
+# TODO убирай хардкод по максимуму!

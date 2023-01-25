@@ -4,6 +4,7 @@ from django.test import TestCase
 from shelter_app.forms import ShelterUserCreationForm, PetModelForm
 
 
+# TODO ну это немного лишнее, под "тестом формы" имелось ввиду тестирование вью, где эта форма используется
 class ShelterUserCreationFormTest(TestCase):
 
     def test_username_params(self):
