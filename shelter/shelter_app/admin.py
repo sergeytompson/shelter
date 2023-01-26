@@ -76,5 +76,5 @@ class PetAdmin(admin.ModelAdmin):
 
 @admin.register(ShelterUser)
 class ShelterUserAdmin(UserAdmin):
-    UserAdmin.fieldsets[0][1]['fields'] += ('shelter',)
+    UserAdmin.fieldsets[0][1]["fields"] += ("shelter",)
     fieldsets = UserAdmin.fieldsets
