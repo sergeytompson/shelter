@@ -1,11 +1,9 @@
 from datetime import date
-from typing import Union
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import Group
 from django.contrib.auth.views import LoginView
-from django.db.models import QuerySet
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import (
@@ -17,26 +15,15 @@ from django.views.generic import (
 )
 
 from .forms import PetModelForm, ShelterUserCreationForm
-from .models import Pets
-
-
-class ShelterQuerysetMixin:
-    request = None
-
-    def get_queryset(self) -> QuerySet:
-        if self.request.user.shelter is not None:
-            return Pets.objects.filter(shelter=self.request.user.shelter)
-        return Pets.objects.all()
+from .mixins import ShelterQuerysetMixin
 
 
 class PetsListView(LoginRequiredMixin, ShelterQuerysetMixin, ListView):
-    model = Pets
     context_object_name = "pets"
     login_url = "login"
 
 
 class PetDetailView(LoginRequiredMixin, ShelterQuerysetMixin, DetailView):
-    model = Pets
     context_object_name = "pet"
     login_url = "login"
 
@@ -54,8 +41,7 @@ class PetDetailView(LoginRequiredMixin, ShelterQuerysetMixin, DetailView):
         return context
 
 
-class PetCreateView(PermissionRequiredMixin, CreateView):
-    model = Pets
+class PetCreateView(PermissionRequiredMixin, ShelterQuerysetMixin, CreateView):
     form_class = PetModelForm
     raise_exception = True
     permission_required = "shelter_app.add_pets"
@@ -80,7 +66,6 @@ class PetCreateView(PermissionRequiredMixin, CreateView):
 
 
 class PetUpdateView(PermissionRequiredMixin, ShelterQuerysetMixin, UpdateView):
-    model = Pets
     form_class = PetModelForm
     raise_exception = True
     permission_required = "shelter_app.change_pets"
@@ -93,7 +78,6 @@ class PetUpdateView(PermissionRequiredMixin, ShelterQuerysetMixin, UpdateView):
 
 
 class PetDeleteView(PermissionRequiredMixin, ShelterQuerysetMixin, DeleteView):
-    model = Pets
     raise_exception = True
     permission_required = "shelter_app.delete_pets"
 
