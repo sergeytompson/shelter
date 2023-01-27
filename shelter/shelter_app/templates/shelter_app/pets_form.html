@@ -5,6 +5,9 @@
 <form method='post'>
     {% csrf_token %}
         {{ form.as_p }}
+        {% if form.errors %}
+            {{ form.errors }}
+        {% endif %}
     <button>{{ button }}</button>
 </form>
 {% endblock %}

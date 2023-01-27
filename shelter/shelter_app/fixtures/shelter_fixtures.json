@@ -1,0 +1,694 @@
+[
+  {
+    "model": "shelter_app.shelters",
+    "pk": 2,
+    "fields": {
+      "name": "Верные друзья",
+      "photo": "photos/shelters/Верные_друзья.jpg"
+    }
+  },
+  {
+    "model": "shelter_app.shelters",
+    "pk": 3,
+    "fields": {
+      "name": "Добрые руки",
+      "photo": "photos/shelters/Добрые_руки.jpg"
+    }
+  },
+  {
+    "model": "shelter_app.shelters",
+    "pk": 4,
+    "fields": {
+      "name": "Искра",
+      "photo": "photos/shelters/Искра.jpg"
+    }
+  },
+  {
+    "model": "shelter_app.shelters",
+    "pk": 5,
+    "fields": {
+      "name": "Муниципальный приют для животных",
+      "photo": "photos/shelters/Муниципальный_приют_для_животных.jpg"
+    }
+  },
+  {
+    "model": "shelter_app.shelters",
+    "pk": 6,
+    "fields": {
+      "name": "Муркошка",
+      "photo": "photos/shelters/Муркошка.jpg"
+    }
+  },
+  {
+    "model": "shelter_app.kinds",
+    "pk": 1,
+    "fields": {
+      "name": "Собака"
+    }
+  },
+  {
+    "model": "shelter_app.kinds",
+    "pk": 2,
+    "fields": {
+      "name": "Кошка"
+    }
+  },
+  {
+    "model": "shelter_app.kinds",
+    "pk": 3,
+    "fields": {
+      "name": "Крыса"
+    }
+  },
+  {
+    "model": "shelter_app.kinds",
+    "pk": 4,
+    "fields": {
+      "name": "Черепаха"
+    }
+  },
+  {
+    "model": "shelter_app.kinds",
+    "pk": 5,
+    "fields": {
+      "name": "Попугай"
+    }
+  },
+  {
+    "model": "shelter_app.kinds",
+    "pk": 6,
+    "fields": {
+      "name": "Змея"
+    }
+  },
+  {
+    "model": "shelter_app.pets",
+    "pk": 8,
+    "fields": {
+      "name": "Питон",
+      "birthday": "1993-04-20",
+      "arrival_date": "2023-01-17",
+      "weight": 34.0,
+      "height": 200.0,
+      "signs": "Простой и понятный синтаксис, легкость в изучении, множество фреймворков и библиотек и, конечно же, гибкость.",
+      "photo": "photos/pets/Python.jpg",
+      "deleted": false,
+      "shelter": 4,
+      "kind": 6
+    }
+  },
+  {
+    "model": "shelter_app.pets",
+    "pk": 9,
+    "fields": {
+      "name": "Баффи",
+      "birthday": "2015-12-02",
+      "arrival_date": "2023-01-17",
+      "weight": 3.4,
+      "height": 21.2,
+      "signs": "",
+      "photo": "photos/pets/Баффи.jpg",
+      "deleted": false,
+      "shelter": 6,
+      "kind": 2
+    }
+  },
+  {
+    "model": "shelter_app.pets",
+    "pk": 10,
+    "fields": {
+      "name": "Вьюга",
+      "birthday": "2020-09-13",
+      "arrival_date": "2023-01-17",
+      "weight": 23.7,
+      "height": 38.2,
+      "signs": "Подвижная и игривая",
+      "photo": "photos/pets/Вьюга.jpg",
+      "deleted": false,
+      "shelter": 5,
+      "kind": 1
+    }
+  },
+  {
+    "model": "shelter_app.pets",
+    "pk": 11,
+    "fields": {
+      "name": "Грей",
+      "birthday": "2018-10-20",
+      "arrival_date": "2023-01-17",
+      "weight": 41.6,
+      "height": 43.2,
+      "signs": "Спокойный и дружелюбный",
+      "photo": "photos/pets/Грей.jpg",
+      "deleted": false,
+      "shelter": 3,
+      "kind": 1
+    }
+  },
+  {
+    "model": "shelter_app.pets",
+    "pk": 12,
+    "fields": {
+      "name": "Джек",
+      "birthday": "2017-07-27",
+      "arrival_date": "2023-01-17",
+      "weight": 25.1,
+      "height": 36.8,
+      "signs": "Агрессивный с другими собаками и дружелюбный с людьми",
+      "photo": "photos/pets/Джек.jpg",
+      "deleted": false,
+      "shelter": 3,
+      "kind": 1
+    }
+  },
+  {
+    "model": "shelter_app.pets",
+    "pk": 13,
+    "fields": {
+      "name": "Лариса",
+      "birthday": "2022-11-06",
+      "arrival_date": "2023-01-17",
+      "weight": 0.9,
+      "height": 7.2,
+      "signs": "Любознательная",
+      "photo": "photos/pets/Лариса.jpg",
+      "deleted": false,
+      "shelter": 3,
+      "kind": 3
+    }
+  },
+  {
+    "model": "shelter_app.pets",
+    "pk": 14,
+    "fields": {
+      "name": "Лила",
+      "birthday": "2015-04-15",
+      "arrival_date": "2023-01-17",
+      "weight": 3.5,
+      "height": 17.8,
+      "signs": "Надоедливая, но ласковая",
+      "photo": "photos/pets/Лила.jpg",
+      "deleted": false,
+      "shelter": 2,
+      "kind": 2
+    }
+  },
+  {
+    "model": "shelter_app.pets",
+    "pk": 15,
+    "fields": {
+      "name": "Лола",
+      "birthday": "2016-05-19",
+      "arrival_date": "2023-01-17",
+      "weight": 2.7,
+      "height": 17.2,
+      "signs": "Бешенная",
+      "photo": "photos/pets/Лола.jpg",
+      "deleted": false,
+      "shelter": 6,
+      "kind": 2
+    }
+  },
+  {
+    "model": "shelter_app.pets",
+    "pk": 16,
+    "fields": {
+      "name": "Мася",
+      "birthday": "2020-02-02",
+      "arrival_date": "2023-01-17",
+      "weight": 3.5,
+      "height": 16.4,
+      "signs": "Путешественница по огородам",
+      "photo": "photos/pets/Мася.jpg",
+      "deleted": false,
+      "shelter": 6,
+      "kind": 2
+    }
+  },
+  {
+    "model": "shelter_app.pets",
+    "pk": 17,
+    "fields": {
+      "name": "Муся",
+      "birthday": "2003-11-12",
+      "arrival_date": "2023-01-17",
+      "weight": 2.3,
+      "height": 15.8,
+      "signs": "Старая крикунья",
+      "photo": "photos/pets/Муся.jpg",
+      "deleted": false,
+      "shelter": 5,
+      "kind": 2
+    }
+  },
+  {
+    "model": "shelter_app.pets",
+    "pk": 18,
+    "fields": {
+      "name": "Нильс",
+      "birthday": "2016-06-27",
+      "arrival_date": "2023-01-17",
+      "weight": 43.2,
+      "height": 37.4,
+      "signs": "Любитель бутылок",
+      "photo": "photos/pets/Нильс.jpg",
+      "deleted": false,
+      "shelter": 4,
+      "kind": 1
+    }
+  },
+  {
+    "model": "shelter_app.pets",
+    "pk": 19,
+    "fields": {
+      "name": "Один",
+      "birthday": "2008-08-12",
+      "arrival_date": "2023-01-17",
+      "weight": 4.9,
+      "height": 19.0,
+      "signs": "Гоняет кошек",
+      "photo": "photos/pets/Один.jpg",
+      "deleted": false,
+      "shelter": 6,
+      "kind": 2
+    }
+  },
+  {
+    "model": "shelter_app.pets",
+    "pk": 20,
+    "fields": {
+      "name": "Понго",
+      "birthday": "2020-01-21",
+      "arrival_date": "2023-01-17",
+      "weight": 19.7,
+      "height": 34.2,
+      "signs": "",
+      "photo": "photos/pets/Понго.jpg",
+      "deleted": false,
+      "shelter": 2,
+      "kind": 1
+    }
+  },
+  {
+    "model": "shelter_app.pets",
+    "pk": 21,
+    "fields": {
+      "name": "Попка",
+      "birthday": "2019-07-04",
+      "arrival_date": "2023-01-17",
+      "weight": 0.8,
+      "height": 13.1,
+      "signs": "Дурак",
+      "photo": "photos/pets/Попка.png",
+      "deleted": false,
+      "shelter": 4,
+      "kind": 5
+    }
+  },
+  {
+    "model": "shelter_app.pets",
+    "pk": 22,
+    "fields": {
+      "name": "Разбойник",
+      "birthday": "2016-12-20",
+      "arrival_date": "2023-01-17",
+      "weight": 2.4,
+      "height": 21.3,
+      "signs": "",
+      "photo": "photos/pets/Разбойник.jpg",
+      "deleted": false,
+      "shelter": 5,
+      "kind": 5
+    }
+  },
+  {
+    "model": "shelter_app.pets",
+    "pk": 23,
+    "fields": {
+      "name": "Ричард",
+      "birthday": "2020-06-13",
+      "arrival_date": "2023-01-17",
+      "weight": 53.2,
+      "height": 41.7,
+      "signs": "Кидается на людей и собак. И на машины",
+      "photo": "photos/pets/Ричард.jpg",
+      "deleted": false,
+      "shelter": 2,
+      "kind": 1
+    }
+  },
+  {
+    "model": "shelter_app.pets",
+    "pk": 24,
+    "fields": {
+      "name": "Рэй",
+      "birthday": "2019-03-12",
+      "arrival_date": "2023-01-17",
+      "weight": 23.4,
+      "height": 36.2,
+      "signs": "Скачет как козлик",
+      "photo": "photos/pets/Рэй.jpg",
+      "deleted": false,
+      "shelter": 3,
+      "kind": 1
+    }
+  },
+  {
+    "model": "shelter_app.pets",
+    "pk": 25,
+    "fields": {
+      "name": "Сабрина",
+      "birthday": "2021-08-02",
+      "arrival_date": "2023-01-17",
+      "weight": 3.9,
+      "height": 15.8,
+      "signs": "Маленькая ведьма",
+      "photo": "photos/pets/Сабрина.jpg",
+      "deleted": false,
+      "shelter": 6,
+      "kind": 2
+    }
+  },
+  {
+    "model": "shelter_app.pets",
+    "pk": 26,
+    "fields": {
+      "name": "Саймон",
+      "birthday": "1987-01-30",
+      "arrival_date": "2023-01-17",
+      "weight": 8.8,
+      "height": 12.0,
+      "signs": "",
+      "photo": "photos/pets/Саймон.jpg",
+      "deleted": false,
+      "shelter": 2,
+      "kind": 4
+    }
+  },
+  {
+    "model": "shelter_app.pets",
+    "pk": 27,
+    "fields": {
+      "name": "Саман",
+      "birthday": "2017-03-11",
+      "arrival_date": "2023-01-17",
+      "weight": 32.1,
+      "height": 44.7,
+      "signs": "",
+      "photo": "photos/pets/Саман.jpg",
+      "deleted": false,
+      "shelter": 4,
+      "kind": 1
+    }
+  },
+  {
+    "model": "shelter_app.pets",
+    "pk": 28,
+    "fields": {
+      "name": "Тео",
+      "birthday": "2021-10-25",
+      "arrival_date": "2023-01-17",
+      "weight": 13.8,
+      "height": 16.7,
+      "signs": "Неутомимый",
+      "photo": "photos/pets/Тео.jpg",
+      "deleted": false,
+      "shelter": 5,
+      "kind": 1
+    }
+  },
+  {
+    "model": "shelter_app.pets",
+    "pk": 29,
+    "fields": {
+      "name": "Тея",
+      "birthday": "2021-03-14",
+      "arrival_date": "2023-01-17",
+      "weight": 19.4,
+      "height": 28.9,
+      "signs": "Пугливая. Не любит волосатых собак",
+      "photo": "photos/pets/Тея.jpg",
+      "deleted": false,
+      "shelter": 2,
+      "kind": 1
+    }
+  },
+  {
+    "model": "shelter_app.pets",
+    "pk": 30,
+    "fields": {
+      "name": "Урай",
+      "birthday": "2017-05-16",
+      "arrival_date": "2023-01-17",
+      "weight": 34.2,
+      "height": 42.8,
+      "signs": "Любит побегать",
+      "photo": "photos/pets/Урай.jpg",
+      "deleted": false,
+      "shelter": 3,
+      "kind": 1
+    }
+  },
+  {
+    "model": "shelter_app.pets",
+    "pk": 31,
+    "fields": {
+      "name": "Шаня",
+      "birthday": "2015-09-08",
+      "arrival_date": "2023-01-17",
+      "weight": 4.1,
+      "height": 18.3,
+      "signs": "",
+      "photo": "photos/pets/Шаня.jpg",
+      "deleted": false,
+      "shelter": 4,
+      "kind": 2
+    }
+  },
+  {
+    "model": "shelter_app.pets",
+    "pk": 32,
+    "fields": {
+      "name": "Эмми",
+      "birthday": "2021-12-29",
+      "arrival_date": "2023-01-17",
+      "weight": 18.8,
+      "height": 21.2,
+      "signs": "",
+      "photo": "photos/pets/Эмми.jpg",
+      "deleted": false,
+      "shelter": 5,
+      "kind": 1
+    }
+  },
+  {
+    "model": "shelter_app.shelteruser",
+    "pk": 9,
+    "fields": {
+      "password": "pbkdf2_sha256$390000$OQE3QNB0YEvOUJJkYSL7gE$ms5ExHi0DfYFKc79f9VY+WDSjccmE3LO6HE6bxuaWvE=",
+      "last_login": "2023-01-18T15:50:10.239Z",
+      "is_superuser": false,
+      "username": "Валера",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-01-18T13:13:17Z",
+      "shelter": 2,
+      "groups": [
+        1
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "shelter_app.shelteruser",
+    "pk": 10,
+    "fields": {
+      "password": "pbkdf2_sha256$390000$Cym5mwyA3pPTu03KEKGla1$tx6p3EKaTeFGOnEenUX8b2NDnGqS2JQ92b5bZc/uhXU=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "Настя",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-01-18T13:13:47Z",
+      "shelter": 6,
+      "groups": [
+        1
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "shelter_app.shelteruser",
+    "pk": 11,
+    "fields": {
+      "password": "pbkdf2_sha256$390000$pDqd9qmVtYjQq7ZSCsoKqg$SlNYth+pz3DM0ayb/j19qaIxi+zcgWKEbUvbp8jzTTA=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "Катя",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-01-18T13:14:10Z",
+      "shelter": 4,
+      "groups": [
+        3
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "shelter_app.shelteruser",
+    "pk": 12,
+    "fields": {
+      "password": "pbkdf2_sha256$390000$b4gpKY2SF0tPB2EHxrEeJL$7lOMOxeV6DO5y8IlFkbepWQpaGW9BRD6yVju3MbPQFU=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "Ваня",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-01-18T13:14:28Z",
+      "shelter": 2,
+      "groups": [
+        3
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "shelter_app.shelteruser",
+    "pk": 13,
+    "fields": {
+      "password": "pbkdf2_sha256$390000$rYaGjKo6htEYAIpa7AdpiA$GxfkvDx77rxvAvKbuZpGcEDfdUwmNxUdExafzBdDBb8=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "Иван",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-01-18T13:14:56Z",
+      "shelter": 3,
+      "groups": [
+        1
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "shelter_app.shelteruser",
+    "pk": 14,
+    "fields": {
+      "password": "pbkdf2_sha256$390000$tyZVtZ96hncbod9MohnTDa$pRJD2LoyBw939+kdPJ9xoUly8akHIvqO6HPXaGSGSbQ=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "Карина",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-01-18T13:15:25Z",
+      "shelter": 4,
+      "groups": [
+        1
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "shelter_app.shelteruser",
+    "pk": 15,
+    "fields": {
+      "password": "pbkdf2_sha256$390000$XOmBz1usz61rZjkVTANGCY$6whgBDM8GhFl/4xRxmvGZGxOWBCblXH5ChgLRnwHebY=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "Лена",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-01-18T13:15:39Z",
+      "shelter": 5,
+      "groups": [
+        3
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "shelter_app.shelteruser",
+    "pk": 16,
+    "fields": {
+      "password": "pbkdf2_sha256$390000$qhWtlpWw6v0nkbhhZBS8aV$ZhWHgO4+UWHB/fwGs204wFrKy3AFS3mIoHnwVgzseSE=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "Игнат",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-01-18T13:16:02Z",
+      "shelter": 3,
+      "groups": [
+        3
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "shelter_app.shelteruser",
+    "pk": 17,
+    "fields": {
+      "password": "pbkdf2_sha256$390000$mtxTd3Za4gqMRzHm7qzhzN$Ld6bU8W1i+wYDpE7JOe3E7Bgk276VPXPqPLuPF0mi50=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "Коля",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-01-18T13:16:30Z",
+      "shelter": 5,
+      "groups": [
+        1
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "shelter_app.shelteruser",
+    "pk": 18,
+    "fields": {
+      "password": "pbkdf2_sha256$390000$PcfxxDKVnbhno3MMtodbJy$e2wFyfb2sO5ggRVVYgkwPfaAbybSl1/1N3GqB4cP9F0=",
+      "last_login": "2023-01-18T14:51:58.117Z",
+      "is_superuser": false,
+      "username": "Оля",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-01-18T13:17:00Z",
+      "shelter": 6,
+      "groups": [
+        3
+      ],
+      "user_permissions": []
+    }
+  }
+]

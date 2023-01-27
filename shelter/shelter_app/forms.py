@@ -33,12 +33,6 @@ class PetModelForm(forms.ModelForm):
         empty_label="Выберете вид животного",
         widget=forms.Select(),
     )
-    shelter = forms.ModelChoiceField(
-        label="Приют",
-        queryset=Shelters.objects.all(),
-        empty_label="Выберете приют",
-        widget=forms.Select(),
-    )
 
     class Meta:
         model = Pets
@@ -49,7 +43,6 @@ class PetModelForm(forms.ModelForm):
             "weight",
             "height",
             "signs",
-            "shelter",
             "photo",
         )
         widgets = {

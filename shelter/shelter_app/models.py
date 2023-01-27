@@ -20,9 +20,6 @@ class Shelters(models.Model):
     def __str__(self) -> str:
         return self.name
 
-    def get_absolute_url(self) -> str:
-        return reverse("shelter", kwargs={"pk": self.pk})
-
     class Meta:
         verbose_name = "Приют"
         verbose_name_plural = "Приюты"

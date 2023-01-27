@@ -1,12 +1,10 @@
 from datetime import date
-from typing import Union
 
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import Group
 from django.contrib.auth.views import LoginView
-from django.db.models import QuerySet
-from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import (
     CreateView,
@@ -16,24 +14,18 @@ from django.views.generic import (
     UpdateView,
 )
 
-from .forms import ShelterUserCreationForm, PetModelForm
-from .models import Pets, Shelters, ShelterUser
+from .forms import PetModelForm, ShelterUserCreationForm
+from .mixins import ShelterQuerysetMixin
 
 
-class PetsListView(LoginRequiredMixin, ListView):
-    model = Pets
+class PetsListView(LoginRequiredMixin, ShelterQuerysetMixin, ListView):
     context_object_name = "pets"
     login_url = "login"
 
-    def get_queryset(self) -> QuerySet:
-        if hasattr(self.request.user, "shelteruser"):
-            return Pets.objects.filter(shelter=self.request.user.shelteruser.shelter)
-        return Pets.objects.all()
 
-
-class PetDetailView(DetailView):
-    model = Pets
+class PetDetailView(LoginRequiredMixin, ShelterQuerysetMixin, DetailView):
     context_object_name = "pet"
+    login_url = "login"
 
     def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
@@ -49,35 +41,43 @@ class PetDetailView(DetailView):
         return context
 
 
-class PetCreateView(PermissionRequiredMixin, CreateView):
-    model = Pets
+class PetCreateView(PermissionRequiredMixin, ShelterQuerysetMixin, CreateView):
     form_class = PetModelForm
     raise_exception = True
     permission_required = "shelter_app.add_pets"
 
     def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Создание животного'
-        context['button'] = 'Создать животное'
+        context["title"] = "Создание животного"
+        context["button"] = "Создать животное"
         return context
 
+    def form_valid(self, form):
+        if self.request.user.shelter is not None:
+            pet = form.save(commit=False)
+            pet.shelter = self.request.user.shelter
+            return super().form_valid(form)
+        else:
+            messages.error(
+                self.request,
+                "Пожалуйста, создайте новое животное в административной панели",
+            )
+            return self.form_invalid(form)
 
-class PetUpdateView(PermissionRequiredMixin, UpdateView):
-    model = Pets
+
+class PetUpdateView(PermissionRequiredMixin, ShelterQuerysetMixin, UpdateView):
     form_class = PetModelForm
     raise_exception = True
     permission_required = "shelter_app.change_pets"
-    queryset = Pets.objects.all()
 
     def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Обновление информации о животном'
-        context['button'] = 'Обновить информацию'
+        context["title"] = "Обновление информации о животном"
+        context["button"] = "Обновить информацию"
         return context
 
 
-class PetDeleteView(PermissionRequiredMixin, DeleteView):
-    model = Pets
+class PetDeleteView(PermissionRequiredMixin, ShelterQuerysetMixin, DeleteView):
     raise_exception = True
     permission_required = "shelter_app.delete_pets"
 
@@ -90,16 +90,10 @@ class ShelterUserRegisterView(CreateView):
     template_name = "shelter_app/register.html"
     success_url = reverse_lazy("login")
 
-    def post(
-        self, request: HttpRequest, *args, **kwargs
-    ) -> Union[HttpResponseRedirect, HttpResponse]:
-        form = self.get_form()
-        if form.is_valid():
-            new_user = form.save()
-            new_user.groups.add(Group.objects.get(name="guest"))
-            return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
+    def form_valid(self, form):
+        self.object = form.save()
+        self.object.groups.add(Group.objects.get(name="guest"))
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class ShelterUserLoginView(LoginView):
