@@ -1,6 +1,5 @@
 from django import forms
 from django.test import TestCase
-
 from shelter_app.forms import PetModelForm, ShelterUserCreationForm
 
 

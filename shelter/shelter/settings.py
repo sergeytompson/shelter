@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "shelter_app.apps.ShelterAppConfig",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [

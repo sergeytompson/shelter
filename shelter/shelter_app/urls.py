@@ -1,6 +1,6 @@
 from django.conf.urls.static import static
 from django.contrib.auth.views import LogoutView
-from django.urls import path
+from django.urls import include, path
 
 from shelter import settings
 
@@ -15,6 +15,7 @@ urlpatterns = [
     path("register/", ShelterUserRegisterView.as_view(), name="register"),
     path("login/", ShelterUserLoginView.as_view(), name="login"),
     path("logout/", LogoutView.as_view(), name="logout"),
+    path("api/", include("shelter_app.api_urls")),
 ]
 
 if settings.DEBUG:
