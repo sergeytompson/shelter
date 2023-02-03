@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Pets, ShelterUser
+from shelter_app.models import Pets, ShelterUser
 
 
 class PetsCrtUpdDelSerializer(serializers.ModelSerializer):

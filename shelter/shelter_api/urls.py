@@ -1,7 +1,7 @@
 from django.urls import include, path
 from rest_framework import routers
 
-from .views import PetsViewSet, ShelterUserRegistrationAPIView
+from shelter_api.views import PetsViewSet, ShelterUserRegistrationAPIView
 
 router = routers.SimpleRouter()
 router.register(r"pet", PetsViewSet, basename="pet")
