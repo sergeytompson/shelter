@@ -16,7 +16,13 @@ from shelter_api.serializers import (
 from shelter_app.mixins import ShelterQuerysetMixin
 
 
+# TODO еще есть rest_framework.generics - по структуре будет очень похоже на джанговские вьюхи
+
+# TODO не нашел во вью проверку пермишенов и залогинен ли пользак
+
+# TODO где аннотации?
 class PetsViewSet(ShelterQuerysetMixin, ModelViewSet):
+    # TODO list?
     permission_classes = [DjangoModelPermissions]
 
     def perform_create(self, serializer):
@@ -28,6 +34,8 @@ class PetsViewSet(ShelterQuerysetMixin, ModelViewSet):
             )
 
     def get_serializer_class(self):
+        # TODO в 3.10 появился pattern matching отличная возможность его попробовать
+        #  https://peps.python.org/pep-0636/
         if self.action == "list":
             return PetsListSerializer
         elif self.action == "retrieve":
@@ -39,10 +47,11 @@ class PetsViewSet(ShelterQuerysetMixin, ModelViewSet):
         obj = super().get_object()
         birthday = obj.birthday
         today = date.today()
+        # TODO где то я этот кусок уже видел
         age = (
-            today.year
-            - birthday.year
-            - ((today.month, today.day) < (birthday.month, birthday.day))
+                today.year
+                - birthday.year
+                - ((today.month, today.day) < (birthday.month, birthday.day))
         )
         obj.age = age
         return obj
@@ -52,5 +61,23 @@ class ShelterUserRegistrationAPIView(CreateAPIView):
     serializer_class = ShelterUserRegistrationSerializer
 
     def perform_create(self, serializer):
+        # TODO а может ли произойти ситуация, когда пользователь создался, а искомой группы нет?
+        #  почитай про транзакции в бд и django orm  в частности
         user = serializer.save()
+        # TODO старайся не использовать константы так, сделай константу в начале модуля или класса и подставляй уже ее
         user.groups.add(Group.objects.get(name="guest"))
+
+    # TODO вот такой ответ дает api на мой запрос что же здесь не так?)
+    """
+    HTTP 201 Created
+    Allow: POST, OPTIONS
+    Content-Type: application/json
+    Vary: Accept
+    
+    {
+        "username": "username",
+        "shelter": 2,
+        "password": "000",
+        "password2": "000"
+    }
+    """
