@@ -1,13 +1,25 @@
+from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 
 from shelter_app.models import Pets, ShelterUser
 
 
-# TODO такой нэйминг никуда не годится
-class PetsCrtUpdDelSerializer(serializers.ModelSerializer):
+class PetsChangeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pets
         exclude = ("shelter", "deleted")
+
+
+class PetsCreateSerializer(PetsChangeSerializer):
+    pass
+
+
+class PetsUpdateSerializer(PetsChangeSerializer):
+    pass
+
+
+class PetsDeleteSerializer(PetsChangeSerializer):
+    pass
 
 
 class PetsListSerializer(serializers.ModelSerializer):
@@ -26,12 +38,19 @@ class PetsDetailSerializer(serializers.ModelSerializer):
 
 
 class ShelterUserRegistrationSerializer(serializers.ModelSerializer):
-    password2 = serializers.CharField()
+    password = serializers.CharField(
+        write_only=True, label="Пароль", style={"input_type": "password"}
+    )
+    password2 = serializers.CharField(
+        label="Подтвердите пароль",
+        write_only=True,
+        validators=(validate_password,),
+        style={"input_type": "password"},
+    )
 
     class Meta:
         model = ShelterUser
-        # TODO почему используется list?
-        fields = ["username", "shelter", "password", "password2"]
+        fields = ("username", "shelter", "password", "password2")
 
     def save(self, *args, **kwargs):
         password = self.validated_data["password"]

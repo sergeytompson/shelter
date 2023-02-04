@@ -2,6 +2,7 @@ from datetime import date
 
 from django.contrib.auth.models import Permission
 from django.test import TestCase
+
 from shelter_app.models import Kinds, Pets, Shelters, ShelterUser
 
 

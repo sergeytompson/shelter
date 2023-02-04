@@ -1,5 +1,3 @@
-from datetime import date
-
 from django.contrib import messages
 from django.contrib.auth.mixins import (LoginRequiredMixin,
                                         PermissionRequiredMixin)
@@ -9,6 +7,9 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   UpdateView)
+
+from shelter.settings import READ_GROUP_NAME
+from utils.birthday_to_age import convert_birthday_to_age
 
 from .forms import PetModelForm, ShelterUserCreationForm
 from .mixins import ShelterQuerysetMixin
@@ -26,14 +27,7 @@ class PetDetailView(LoginRequiredMixin, ShelterQuerysetMixin, DetailView):
     def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
         pet = context["pet"]
-        birthday = pet.birthday
-        today = date.today()
-        age = (
-            today.year
-            - birthday.year
-            - ((today.month, today.day) < (birthday.month, birthday.day))
-        )
-        context["age"] = age
+        context["age"] = convert_birthday_to_age(pet.birthday)
         return context
 
 
@@ -88,7 +82,7 @@ class ShelterUserRegisterView(CreateView):
 
     def form_valid(self, form):
         self.object = form.save()
-        self.object.groups.add(Group.objects.get(name="guest"))
+        self.object.groups.add(Group.objects.get(name=READ_GROUP_NAME))
         return HttpResponseRedirect(self.get_success_url())
 
 

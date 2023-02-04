@@ -5,6 +5,9 @@ from django.core.management.sql import emit_post_migrate_signal
 from django.db import migrations
 from django.db.backends.base.schema import BaseDatabaseSchemaEditor
 
+from shelter.settings import (READ_CREATE_UPDATE_DELETE_GROUP_NAME,
+                              READ_CREATE_UPDATE_GROUP_NAME, READ_GROUP_NAME)
+
 
 def create_groups(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
     emit_post_migrate_signal(2, False, "default")
@@ -17,14 +20,14 @@ def create_groups(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
     add_pet, _ = permission.objects.get_or_create(name="Can add Животное")
     delete_pet, _ = permission.objects.get_or_create(name="Can delete Животное")
 
-    guest, _ = group.objects.get_or_create(name="guest")
+    guest, _ = group.objects.get_or_create(name=READ_GROUP_NAME)
     guest.permissions.add(view_pet)
     user, _ = group.objects.get_or_create(
-        name="user",
+        name=READ_CREATE_UPDATE_GROUP_NAME,
     )
     user.permissions.add(view_pet, change_pet, add_pet)
     admin, _ = group.objects.get_or_create(
-        name="admin",
+        name=READ_CREATE_UPDATE_DELETE_GROUP_NAME,
     )
     admin.permissions.add(view_pet, change_pet, add_pet, delete_pet)
 
