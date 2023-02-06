@@ -44,7 +44,7 @@ class PetCreateView(PermissionRequiredMixin, ShelterQuerysetMixin, CreateView):
         context["button"] = "Создать животное"
         return context
 
-    def form_valid(self, form: form_class) -> Callable:
+    def form_valid(self, form: PetModelForm) -> Callable:
         if self.request.user.shelter is not None:
             pet = form.save(commit=False)
             pet.shelter = self.request.user.shelter
@@ -82,7 +82,7 @@ class ShelterUserRegisterView(CreateView):
     template_name = "shelter_app/register.html"
     success_url = reverse_lazy("login")
 
-    def form_valid(self, form: form_class) -> HttpResponseRedirect:
+    def form_valid(self, form: ShelterUserCreationForm) -> HttpResponseRedirect:
         self.object = form.save()
         self.object.groups.add(Group.objects.get(name=READ_GROUP_NAME))
         return HttpResponseRedirect(self.get_success_url())
