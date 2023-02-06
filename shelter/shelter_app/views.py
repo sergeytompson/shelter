@@ -80,7 +80,7 @@ class ShelterUserRegisterView(CreateView):
     template_name = "shelter_app/register.html"
     success_url = reverse_lazy("login")
 
-    def form_valid(self, form):
+    def form_valid(self, form: form_class) -> HttpResponseRedirect:
         self.object = form.save()
         self.object.groups.add(Group.objects.get(name=READ_GROUP_NAME))
         return HttpResponseRedirect(self.get_success_url())
