@@ -1,3 +1,5 @@
+from typing import Callable
+
 from django.contrib import messages
 from django.contrib.auth.mixins import (LoginRequiredMixin,
                                         PermissionRequiredMixin)
@@ -42,7 +44,7 @@ class PetCreateView(PermissionRequiredMixin, ShelterQuerysetMixin, CreateView):
         context["button"] = "Создать животное"
         return context
 
-    def form_valid(self, form):
+    def form_valid(self, form: form_class) -> Callable:
         if self.request.user.shelter is not None:
             pet = form.save(commit=False)
             pet.shelter = self.request.user.shelter
