@@ -19,4 +19,5 @@ from django.urls import include, path
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("shelter_app.urls")),
+    path("api/", include("shelter_api.urls")),
 ]

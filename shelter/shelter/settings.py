@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "shelter_app.apps.ShelterAppConfig",
+    "shelter_api.apps.ShelterApiConfig",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
@@ -142,3 +144,7 @@ LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/login"
 
 AUTH_USER_MODEL = "shelter_app.ShelterUser"
+
+READ_GROUP_NAME = "guest"
+READ_CREATE_UPDATE_GROUP_NAME = "user"
+READ_CREATE_UPDATE_DELETE_GROUP_NAME = "admin"

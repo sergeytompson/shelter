@@ -4,6 +4,8 @@ from django.contrib.auth.models import Group
 from django.test import TestCase
 from django.urls import reverse
 
+from shelter.settings import (READ_CREATE_UPDATE_DELETE_GROUP_NAME,
+                              READ_CREATE_UPDATE_GROUP_NAME, READ_GROUP_NAME)
 from shelter_app.models import Kinds, Pets, Shelters, ShelterUser
 
 
@@ -19,7 +21,7 @@ class PetsListViewTest(TestCase):
         shelter_user = ShelterUser.objects.create_user(
             username=cls.username, password=cls.password, shelter=cls.shelter
         )
-        shelter_user.groups.add(Group.objects.get(name="guest"))
+        shelter_user.groups.add(Group.objects.get(name=READ_GROUP_NAME))
 
     def test_redirect_unauthorized_user(self):
         resp = self.client.get(self.url)
@@ -66,7 +68,9 @@ class PetsListViewTest(TestCase):
         admin_user = ShelterUser.objects.create_user(
             username=admin_user_name, password=admin_user_password, shelter=self.shelter
         )
-        admin_user.groups.add(Group.objects.get(name="admin"))
+        admin_user.groups.add(
+            Group.objects.get(name=READ_CREATE_UPDATE_DELETE_GROUP_NAME)
+        )
         pets_count = len(Pets.objects.filter(shelter=admin_user.shelter))
         links_count = (pets_count, pets_count, 1)
         link_labels = ("Обновить", "Удалить", "Добавить животное")
@@ -99,7 +103,7 @@ class PetDetailViewTest(TestCase):
         shelter_user = ShelterUser.objects.create_user(
             username=cls.username, password=cls.password, shelter=cls.shelter
         )
-        shelter_user.groups.add(Group.objects.get(name="guest"))
+        shelter_user.groups.add(Group.objects.get(name=READ_GROUP_NAME))
 
     def test_redirect_unauthorized_user(self):
         resp = self.client.get(self.url_pet_from_user_shelter)
@@ -133,7 +137,9 @@ class PetDetailViewTest(TestCase):
         admin_user = ShelterUser.objects.create_user(
             username=admin_user_name, password=admin_user_password, shelter=self.shelter
         )
-        admin_user.groups.add(Group.objects.get(name="admin"))
+        admin_user.groups.add(
+            Group.objects.get(name=READ_CREATE_UPDATE_DELETE_GROUP_NAME)
+        )
         link_labels = ("Обновить", "Удалить", "Добавить животное")
 
         self.client.login(username=admin_user_name, password=admin_user_password)
@@ -172,7 +178,7 @@ class PetCreateViewTest(TestCase):
         shelter_user = ShelterUser.objects.create_user(
             username=cls.username, password=cls.password, shelter=cls.shelter
         )
-        shelter_user.groups.add(Group.objects.get(name="user"))
+        shelter_user.groups.add(Group.objects.get(name=READ_CREATE_UPDATE_GROUP_NAME))
 
     def test_forbidden_unauthorized_user(self):
         resp = self.client.get(self.url)
@@ -183,7 +189,7 @@ class PetCreateViewTest(TestCase):
         guest_user = ShelterUser.objects.create_user(
             username=guest_user_name, password=guest_user_password, shelter=self.shelter
         )
-        guest_user.groups.add(Group.objects.get(name="guest"))
+        guest_user.groups.add(Group.objects.get(name=READ_GROUP_NAME))
         self.client.login(username=guest_user_name, password=guest_user_password)
         resp = self.client.get(self.url)
         self.assertEqual(resp.status_code, 403)
@@ -338,7 +344,7 @@ class PetUpdateViewTest(TestCase):
         shelter_user = ShelterUser.objects.create_user(
             username=cls.username, password=cls.password, shelter=cls.shelter
         )
-        shelter_user.groups.add(Group.objects.get(name="user"))
+        shelter_user.groups.add(Group.objects.get(name=READ_CREATE_UPDATE_GROUP_NAME))
 
     def test_forbidden_unauthorized_user(self):
         resp = self.client.get(self.url_pet_from_user_shelter)
@@ -349,7 +355,7 @@ class PetUpdateViewTest(TestCase):
         guest_user = ShelterUser.objects.create_user(
             username=guest_user_name, password=guest_user_password, shelter=self.shelter
         )
-        guest_user.groups.add(Group.objects.get(name="guest"))
+        guest_user.groups.add(Group.objects.get(name=READ_GROUP_NAME))
         resp = self.client.get(self.url_pet_from_user_shelter)
         self.assertEqual(resp.status_code, 403)
 
@@ -495,7 +501,9 @@ class PetDeleteViewTest(TestCase):
         shelter_user = ShelterUser.objects.create_user(
             username=cls.username, password=cls.password, shelter=cls.shelter
         )
-        shelter_user.groups.add(Group.objects.get(name="admin"))
+        shelter_user.groups.add(
+            Group.objects.get(name=READ_CREATE_UPDATE_DELETE_GROUP_NAME)
+        )
 
     def test_forbidden_unauthorized_user(self):
         resp = self.client.post(self.url_pet_from_user_shelter)
@@ -507,7 +515,7 @@ class PetDeleteViewTest(TestCase):
         guest_user = ShelterUser.objects.create_user(
             username=guest_user_name, password=guest_user_password, shelter=self.shelter
         )
-        guest_user.groups.add(Group.objects.get(name="guest"))
+        guest_user.groups.add(Group.objects.get(name=READ_GROUP_NAME))
         self.client.login(username=guest_user_name, password=guest_user_password)
         resp = self.client.post(self.url_pet_from_user_shelter)
         self.assertEqual(resp.status_code, 403)
