@@ -52,7 +52,7 @@ class ShelterUserRegistrationSerializer(serializers.ModelSerializer):
         model = ShelterUser
         fields = ("username", "shelter", "password", "password2")
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs) -> ShelterUser:
         password = self.validated_data["password"]
         password2 = self.validated_data["password2"]
         if password != password2:
@@ -64,5 +64,5 @@ class ShelterUserRegistrationSerializer(serializers.ModelSerializer):
         )
 
         user.set_password(password)
-        u = user.save()
+        user.save()
         return user

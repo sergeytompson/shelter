@@ -53,6 +53,6 @@ class PetsViewSet(ShelterQuerysetMixin, ModelViewSet):
 class ShelterUserRegistrationAPIView(CreateAPIView):
     serializer_class = ShelterUserRegistrationSerializer
 
-    def perform_create(self, serializer: Type[T]):
+    def perform_create(self, serializer: Type[T]) -> None:
         user = serializer.save()
         user.groups.add(Group.objects.get(name=READ_GROUP_NAME))

@@ -1,7 +1,7 @@
 from datetime import date
 
-# TODO аннотации
-def convert_birthday_to_age(birthday):
+
+def convert_birthday_to_age(birthday: date) -> int:
     today = date.today()
     age = (
         today.year
