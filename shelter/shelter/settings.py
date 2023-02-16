@@ -30,7 +30,7 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
 
 # Application definition
@@ -81,16 +81,17 @@ WSGI_APPLICATION = "shelter.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DB_ADMIN = os.environ["DB_ADMIN"]
-DB_PASSWORD = os.environ["DB_PASSWORD"]
+DB_ADMIN = os.environ["POSTGRES_USER"]
+DB_PASSWORD = os.environ["POSTGRES_PASSWORD"]
+DB_NAME = os.environ["POSTGRES_DB"]
 
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "shelter",
+        "NAME": DB_NAME,
         "USER": DB_ADMIN,
         "PASSWORD": DB_PASSWORD,
-        "HOST": "localhost",
+        "HOST": "postgres",
         "PORT": "5432",
     }
 }
