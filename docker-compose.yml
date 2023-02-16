@@ -6,7 +6,7 @@ services:
     build: ./shelter
     command: sh -c "bin/init.sh && python manage.py runserver 0.0.0.0:8000"
     ports:
-      - 8000:8000
+      - "8000:8000"
     volumes:
       - ./shelter:/usr/src/shelter
     depends_on:
@@ -19,7 +19,7 @@ services:
     env_file:
       - shelter/.env
     ports:
-      - 5432:5432
+      - "5432:5432"
     volumes:
       - ./pg-data:/var/lib/postgresql/data
 
